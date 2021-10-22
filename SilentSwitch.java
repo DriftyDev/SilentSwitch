@@ -9,10 +9,10 @@ public final class SilentSwitch {
   if (Slot == -1) return;
   
   PreviousSlot = mc.player.inventory.currentItem;
-  if (PreviousSlot == slot) return;
+  if (PreviousSlot == Slot) return;
   
-  mc.playerController.windowClick(mc.player.inventoryContainer.windowId, Slot, mc.player.inventory.currentItem, ClickType.SWAP, mc.player);
+  mc.player.connection.sendPacket(new CPacketHeldItemChange(Slot));
   // Action (Crystal Placement)
-  mc.playerController.windowClick(mc.player.inventoryContainer.windowId, PreviousSlot, mc.player.inventory.currentItem, ClickType.SWAP, mc.player);
+  mc.player.connection.sendPacket(new CPacketHeldItemChange(PreviousSlot));
   mc.playerController.updateController();
 }
